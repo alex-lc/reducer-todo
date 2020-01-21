@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useReducer } from 'react';
+import { initialState, todoReducer } from './reducers/todoReducer.js';
+
+// components
+import TodoList from './components/TodoList';
 
 function App() {
+
+  const [state, dispatch] = useReducer(todoReducer, initialState);
+  const [newTodo, setNewTodo] = useState("");
+  console.log(state);
+
+  const handleChanges = e => {
+    setNewTodo(e.target.value);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Todoer</h1>
+      <TodoList items={state} />
+      <div>
+        <input
+          type="text"
+          name="todoItem"
+          value={newTodo}
+          onChange={handleChanges}
+        />
+        <button onClick={() => dispatch({ type: "ADD_TODO", payload: newTodo })}>Add Todo</button>
+        <button>Clear Completed</button>
+      </div>
     </div>
   );
 }
