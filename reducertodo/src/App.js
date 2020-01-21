@@ -14,6 +14,11 @@ function App() {
     setNewTodo(e.target.value);
   }
 
+  const clearCompleted = e => {
+    e.preventDefault();
+    dispatch({ type: "CLEAR_COMPLETED" });
+  }
+
   return (
     <div>
       <h1>Todoer</h1>
@@ -25,8 +30,11 @@ function App() {
           value={newTodo}
           onChange={handleChanges}
         />
-        <button onClick={() => dispatch({ type: "ADD_TODO", payload: newTodo })}>Add Todo</button>
-        <button>Clear Completed</button>
+        <button onClick={() => {
+          dispatch({ type: "ADD_TODO", payload: newTodo })
+          setNewTodo("");
+        }}>Add Todo</button>
+        <button onClick={clearCompleted}>Clear Completed</button>
       </div>
     </div>
   );
