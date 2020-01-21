@@ -8,7 +8,7 @@ function App() {
 
   const [state, dispatch] = useReducer(todoReducer, initialState);
   const [newTodo, setNewTodo] = useState("");
-  console.log(state);
+  // console.log(state);
 
   const handleChanges = e => {
     setNewTodo(e.target.value);
@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <h1>Todoer</h1>
-      <TodoList items={state} />
+      <TodoList items={state} dispatch={dispatch} />
       <div>
         <input
           type="text"
